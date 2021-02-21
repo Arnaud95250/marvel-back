@@ -1,15 +1,27 @@
-const express = require('express');
-const axios = require('axios');
-const cors = require('cors');
+const express = require("express");
+const formidable = require("express-formidable");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const axios = require("axios");
 require("dotenv").config();
-// const mongoose =require('mongoose');
 
 const app = express();
+app.use(formidable());
 app.use(cors())
 
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+// import des route mod et routeur
+const userRoute = require("./routes/user");
+app.use(userRoute);
+
+//Clés de l'API MARVEL
 const keyApi = process.env.KEY_API;
 
-
+// Requete GET qui récupère tout les Comics
 app.get("/comics", async (req, res)=>{
     const limit = req.query.limit || 100;
     const skip = req.query.skip;
@@ -37,7 +49,7 @@ app.get("/comics/:characterId", async (req, res) => {
     }
   });
 
-
+// Requete GET qui récupère tout les personnages 
 app.get("/characters", async (req, res) => {
     const limit = req.query.limit || 100;
     const title = req.query.title;
@@ -52,9 +64,6 @@ app.get("/characters", async (req, res) => {
       res.status(400).json({ error: error.message });
     }
   });
-
-
-
 
 app.all("*", (req, res) => {
     res.status(404).json({ message: "Cette route n'existe pas" });
