@@ -1,7 +1,7 @@
 const express = require("express");
 const formidable = require("express-formidable");
-const mongoose = require("mongoose");
-const cors = require("cors");
+// const mongoose = require("mongoose");
+// const cors = require("cors");
 const axios = require("axios");
 require("dotenv").config();
 
@@ -9,14 +9,14 @@ const app = express();
 app.use(formidable());
 app.use(cors())
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(process.env.MONGODB_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
 // import des route mod et routeur
-const userRoute = require("./routes/user");
-app.use(userRoute);
+// const userRoute = require("./routes/user");
+// app.use(userRoute);
 
 //Clés de l'API MARVEL
 const keyApi = process.env.KEY_API;
