@@ -23,6 +23,7 @@ const keyApi = process.env.KEY_API;
 // const listen = process.env.listen;
 
 // Requete GET qui récupère tout les Comics
+app.use(
 app.get("/comics", async (req, res)=>{
     const limit = req.query.limit || 100;
     const skip = req.query.skip;
@@ -35,7 +36,10 @@ app.get("/comics", async (req, res)=>{
         res.status(400).json({ error: error.message });
     }
 })
+)
 
+
+app.use(
 app.get("/comics/:characterId", async (req, res) => {
     const characterId = req.query.characterId;
     console.log(characterId);
@@ -47,9 +51,12 @@ app.get("/comics/:characterId", async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
-  });
+  })
+)
+
 
 // Requete GET qui récupère tout les personnages 
+app.use(
 app.get("/characters", async (req, res) => {
     const limit = req.query.limit || 100;
     const title = req.query.title;
@@ -63,7 +70,8 @@ app.get("/characters", async (req, res) => {
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
-  });
+  })
+)
 
 app.all("*", (req, res) => {
     res.status(404).json({ message: "Cette route n'existe pas" });
