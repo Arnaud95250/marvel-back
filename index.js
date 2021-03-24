@@ -9,8 +9,8 @@ const app = express();
 app.use(formidable());
 app.use(cors());
 
-// mongoose.connect(process.env.MONGODB_URI, {
-mongoose.connect(process.env.LOCALHOST, {
+mongoose.connect(process.env.MONGODB_URI, {
+  // mongoose.connect(process.env.LOCALHOST, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
